@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38.4 38.4">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <g id="Layer_3" data-name="Layer 3">
+    <circle class="cls-1" cx="19.2" cy="19.2" r="19.2"/>
+    <path d="M23.48,27.37c-1.11,1.09-3.21,1.98-4.75,1.76-1.41-.2-2.7-.8-3.73-1.76-.69-.64-1.23-1.37-1.64-2.23v-4.04s11.76,0,11.76,0v4.04c-.41.86-.95,1.58-1.64,2.23Z"/>
+    <g>
+      <polygon points="12.14 19.12 10.17 19.12 8.3 17.96 8.29 10.62 10.37 9.23 11.93 9.23 14.01 10.62 14 17.96 12.14 19.12"/>
+      <rect class="cls-2" x="10.18" y="10.36" width="1.94" height="2.8" transform="translate(-.02 .02) rotate(-.12)"/>
+    </g>
+    <g>
+      <polygon points="28.25 19.12 26.28 19.12 24.4 17.96 24.4 10.62 26.48 9.23 28.03 9.23 30.11 10.62 30.11 17.96 28.25 19.12"/>
+      <rect class="cls-2" x="26.29" y="10.36" width="1.94" height="2.8" transform="translate(-.02 .06) rotate(-.12)"/>
+    </g>
+  </g>
+</svg>

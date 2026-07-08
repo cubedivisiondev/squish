@@ -1,0 +1,30 @@
+name: Feature request
+description: Suggest an idea or improvement.
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: Describe the use case or frustration this would address.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: What would you like SQUISH to do?
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered (optional)
+  - type: checkboxes
+    id: principles
+    attributes:
+      label: Alignment
+      description: SQUISH is 100% client-side with a never-over-target guarantee and no build step.
+      options:
+        - label: This request keeps processing on-device (nothing uploaded).
+          required: true

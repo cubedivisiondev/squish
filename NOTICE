@@ -1,0 +1,36 @@
+SQUISH
+Copyright (c) 2026 PUDDY Inc.
+
+This product is licensed under the MIT License (see LICENSE).
+
+------------------------------------------------------------------------------
+Trademarks and brand assets
+------------------------------------------------------------------------------
+"PUDDY", "SQUISH", the PUDDY logo, the SQUISH wordmark, and the Puddy face mark
+(including puddy-logo.svg, favicon.svg, the icons in icons/, and og-card.png)
+are trademarks and brand assets of PUDDY Inc.
+
+The MIT License applies to the source code. It does not grant permission to use
+the PUDDY or SQUISH names, logos, or brand assets to identify or endorse a
+derived or unaffiliated product, or in any way that implies affiliation with or
+endorsement by PUDDY Inc. If you fork this project, please replace the brand
+assets with your own. Nominative references (for example, "based on SQUISH by
+PUDDY Inc.") are fine.
+
+------------------------------------------------------------------------------
+Third-party components
+------------------------------------------------------------------------------
+This product bundles and/or loads third-party software and fonts, each under
+its own license. A full inventory with copyright notices is in
+THIRD_PARTY_NOTICES.md. In summary:
+
+  Bundled in this repository
+    - Fonts: Jost, Manrope, Space Mono ............ SIL Open Font License 1.1
+             (license text in fonts/)
+    - ffmpeg.wasm JavaScript API (vendor/ffmpeg/) .. MIT (c) 2019 Jerome Wu
+
+  Loaded at runtime from a public CDN (not redistributed here)
+    - @ffmpeg/core (FFmpeg, WebAssembly) ........... LGPL-2.1-or-later / GPL
+    - gifsicle-wasm-browser (gifsicle) ............. GPL-2.0
+    - pdf.js (pdfjs-dist) .......................... Apache-2.0 (c) Mozilla
+    - pdf-lib ...................................... MIT

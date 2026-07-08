@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Static checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: JavaScript syntax check
+        run: node --check app.js && node --check sw.js
+
+      - name: Verify referenced fonts exist
+        run: |
+          set -euo pipefail
+          missing=0
+          for f in $(grep -oE "fonts/[A-Za-z0-9-]+\.woff2" styles.css | sort -u); do
+            if [ ! -f "$f" ]; then echo "Missing referenced font: $f"; missing=1; fi
+          done
+          [ "$missing" -eq 0 ] && echo "All referenced fonts are present."
+
+      - name: Validate manifest + structured data JSON
+        run: |
+          node -e '
+            const fs = require("fs");
+            JSON.parse(fs.readFileSync("manifest.webmanifest", "utf8"));
+            const html = fs.readFileSync("index.html", "utf8");
+            const blocks = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
+            if (blocks.length === 0) throw new Error("no JSON-LD found");
+            blocks.forEach((m) => JSON.parse(m[1]));
+            console.log("manifest + " + blocks.length + " JSON-LD block(s) valid");
+          '

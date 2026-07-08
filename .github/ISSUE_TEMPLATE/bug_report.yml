@@ -1,0 +1,56 @@
+name: Bug report
+description: Report something that isn't working correctly.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file a bug. Please remember: SQUISH runs
+        entirely in your browser, so your file never leaves your device -
+        **Do not attach sensitive files.** A small, non-sensitive sample that
+        reproduces the issue is ideal.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, and what happened instead?
+      placeholder: I dropped a 4 MB PNG, targeted 200 KB, and...
+    validations:
+      required: true
+  - type: input
+    id: file-details
+    attributes:
+      label: File type and size
+      description: The input format, its size, the output format, and the target you set.
+      placeholder: PNG, 4.2 MB -> WEBP, target 200 KB
+    validations:
+      required: true
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Browser
+      options: [Chrome, Edge, Firefox, Safari, Other]
+    validations:
+      required: true
+  - type: input
+    id: platform
+    attributes:
+      label: Operating system / device
+      placeholder: macOS 15, Windows 11, iPhone 15, Android 14...
+    validations:
+      required: true
+  - type: textarea
+    id: console
+    attributes:
+      label: Console errors (optional)
+      description: Paste any errors from the browser DevTools console.
+      render: shell
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched existing issues and this is not a duplicate.
+          required: true
+        - label: I am not attaching any sensitive or private files.
+          required: true

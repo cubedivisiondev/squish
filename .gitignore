@@ -1,0 +1,22 @@
+# Dependencies (only if a contributor installs a local dev server)
+node_modules/
+package-lock.json
+npm-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+Desktop.ini
+.idea/
+.vscode/
+*.swp
+*~
+
+# Build / temp
+dist/
+build/
+tmp/
+*.log
+.cache/

@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <!-- All asset paths are RELATIVE, so the app runs at any mount point
+       (site root, a project subpath, an offline file, or a webview). -->
+  <title>SQUISH | Compress Any File - Specify the Exact Size</title>
+  <meta name="description" content="Compress images, GIF, video and audio to an exact file size. Pick a target like 200 KB, get the best quality that fits under it. Nothing is uploaded - 100% on your device." />
+  <link rel="canonical" href="https://cubedivisiondev.github.io/squish/" />
+
+  <meta name="theme-color" content="#000000" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=5" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=5" />
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=5" />
+  <link rel="apple-touch-icon" href="icons/icon-180.png?v=5" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="apple-mobile-web-app-title" content="SQUISH" />
+  <link rel="preload" href="fonts/Jost-700.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/Manrope-400.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/SpaceMono-400.woff2" as="font" type="font/woff2" crossorigin />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Puddy Studios" />
+  <meta property="og:url" content="https://cubedivisiondev.github.io/squish/" />
+  <meta property="og:title" content="SQUISH | Compress Any File - Specify the Exact Size" />
+  <meta property="og:description" content="Pick a target size. Get the best-quality file that fits under it. Images, GIF, video, audio. Nothing is uploaded - 100% on your device." />
+  <meta property="og:image" content="https://cubedivisiondev.github.io/squish/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="The squished Puddy face beside the text SQUISH: Compress Any File - A Puddy Studios tool" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SQUISH | Compress Any File - Specify the Exact Size" />
+  <meta name="twitter:description" content="Pick a target size. Get the best-quality file that fits under it. Nothing is uploaded - 100% on your device." />
+  <meta name="twitter:image" content="https://cubedivisiondev.github.io/squish/og-card.png" />
+  <meta name="twitter:image:alt" content="The squished Puddy face beside the text SQUISH: Compress Any File - A Puddy Studios tool" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip" href="#drop">Skip to uploader</a>
+
+  <div id="drop-overlay" class="drop-overlay" hidden aria-hidden="true">
+    <div class="drop-overlay-inner">
+      <div class="drop-glyph" aria-hidden="true"><svg viewBox="0 0 38.4 19.3" xmlns="http://www.w3.org/2000/svg"><ellipse fill="#fff" cx="19.2" cy="9.65" rx="19.2" ry="9.65"/><path d="M27.5,13.75c-.44.55-1.27,1-1.87.89-.56-.1-1.06-.4-1.47-.89-.27-.32-.49-.69-.65-1.12v-2.03s4.64,0,4.64,0v2.03c-.16.43-.37.8-.65,1.12Z"/><g><polygon points="23.02 9.61 22.25 9.61 21.51 9.02 21.5 5.33 22.32 4.64 22.94 4.64 23.76 5.33 23.76 9.02 23.02 9.61"/><rect fill="#fefefe" x="22.25" y="5.2" width=".77" height="1.41" transform="translate(-.02 .06)"/></g><g><polygon points="29.38 9.61 28.6 9.61 27.86 9.02 27.86 5.33 28.68 4.64 29.29 4.64 30.11 5.33 30.11 9.02 29.38 9.61"/><rect fill="#fefefe" x="28.6" y="5.2" width=".77" height="1.41" transform="translate(-.02 .08)"/></g></svg></div>
+      <p>DROP TO SQUISH</p>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <!-- The FOLD: hero + the active stage fill exactly one viewport (minus the
+         fixed studios nav). The SEO content scrolls in below it - placement does
+         not affect indexing (Google renders the full page), it just keeps the
+         first screen a clean app surface. -->
+    <div class="fold">
+    <section class="hero">
+      <h1 class="title" data-text="SQUISH">SQUISH</h1>
+      <p class="tagline">Drop a file.<br />Name a file size.<br />Compress the file to your chosen size at the highest possible quality.</p>
+    </section>
+
+
+    <!-- STEP 2: configure + run (revealed once a file is loaded) -->
+    <section id="stage-config" class="panel hidden">
+      <div class="filecard">
+        <div class="thumb"><img id="orig-preview" alt="Source file preview" /></div>
+        <dl class="meta">
+          <div><dt>FILE</dt><dd id="meta-name" class="ellip">-</dd></div>
+          <div><dt>TYPE</dt><dd id="meta-type">-</dd></div>
+          <div><dt>SIZE</dt><dd id="meta-size" class="big">-</dd></div>
+          <div><dt id="meta-dims-label">DIMENSIONS</dt><dd id="meta-dims">-</dd></div>
+        </dl>
+      </div>
+
+      <div class="format" id="format-control">
+        <label class="label">OUTPUT FORMAT <span class="muted">(your file, your call)</span></label>
+        <div class="seg" role="group" aria-label="Output format">
+          <button type="button" class="seg-btn is-on" data-fmt="same">SAME</button>
+          <button type="button" class="seg-btn" data-fmt="jpeg">JPG</button>
+          <button type="button" class="seg-btn" data-fmt="png">PNG</button>
+          <button type="button" class="seg-btn" data-fmt="webp">WEBP</button>
+        </div>
+        <p id="format-hint" class="hint">&nbsp;</p>
+      </div>
+
+      <div class="mode" id="mode-control">
+        <label class="label">MODE</label>
+        <div class="seg" role="group" aria-label="Mode">
+          <button type="button" class="mode-btn is-on" data-mode="size">TO A SIZE</button>
+          <button type="button" class="mode-btn" data-mode="max">MAX QUALITY</button>
+        </div>
+        <p id="mode-hint" class="hint">&nbsp;</p>
+      </div>
+
+      <div class="target" id="target-control">
+        <label class="label" for="target-value">TARGET SIZE <span class="muted">(get as close as possible without going over)</span></label>
+        <div class="target-row">
+          <input id="target-value" class="num" type="number" min="1" step="1" inputmode="decimal" />
+          <div class="unit" role="group" aria-label="Unit">
+            <button type="button" class="unit-btn" data-unit="KB">KB</button>
+            <button type="button" class="unit-btn is-on" data-unit="MB">MB</button>
+          </div>
+        </div>
+        <div class="presets" aria-label="Quick presets">
+          <button type="button" class="chip" data-frac="0.5">50%</button>
+          <button type="button" class="chip" data-frac="0.25">25%</button>
+          <button type="button" class="chip" data-frac="0.1">10%</button>
+        </div>
+        <p id="target-hint" class="hint">&nbsp;</p>
+      </div>
+
+      <div class="actions">
+        <button id="optimize" class="btn primary" disabled>SQUISH IT</button>
+        <button id="reset-1" class="btn ghost" type="button">CANCEL</button>
+      </div>
+
+      <div class="progress-wrap" hidden>
+        <div class="bar" role="progressbar" aria-label="Compression progress" aria-valuemin="0" aria-valuemax="100"><span id="bar-fill"></span></div>
+        <p id="progress-text" class="status" role="status" aria-live="polite" aria-atomic="true">&nbsp;</p>
+      </div>
+    </section>
+
+    <!-- STEP 3: result -->
+    <section id="stage-result" class="panel hidden" aria-live="polite">
+      <h2 class="res-head">RESULT</h2>
+      <div class="result-grid">
+        <div class="thumb big" id="out-thumb"><img id="out-preview" alt="Optimized preview" /></div>
+        <dl class="meta result-meta">
+          <div class="saved-cell"><dt id="res-ratio-label">SAVED</dt><dd id="res-ratio" class="saved-stat">-</dd></div>
+          <div><dt>ORIGINAL SIZE</dt><dd id="res-orig">-</dd></div>
+          <div><dt>NEW SIZE</dt><dd id="res-new" class="big">-</dd></div>
+          <div class="span2"><dt>VS TARGET</dt><dd id="res-target" class="mono-sm">-</dd></div>
+          <div class="span2"><dt>METHOD</dt><dd id="res-params" class="mono-sm">-</dd></div>
+        </dl>
+      </div>
+      <div id="res-note" class="note" hidden>
+        <span id="res-note-text"></span>
+        <button id="res-recommend" type="button" class="btn ghost note-btn">USE RECOMMENDED</button>
+      </div>
+      <div class="actions">
+        <button id="back-btn" class="btn ghost" type="button">BACK</button>
+        <a id="download" class="btn primary" download>DOWNLOAD</a>
+        <button id="reset-2" class="btn ghost" type="button">SQUISH ANOTHER</button>
+      </div>
+    </section>
+    <!-- STEP 1: input -->
+    <section id="stage-input" class="panel">
+      <div id="drop" class="drop" tabindex="0" role="button" aria-label="Drop a file here or press Enter to browse">
+        <div class="drop-glyph" aria-hidden="true"><svg viewBox="0 0 38.4 19.3" xmlns="http://www.w3.org/2000/svg"><ellipse fill="#fff" cx="19.2" cy="9.65" rx="19.2" ry="9.65"/><path d="M27.5,13.75c-.44.55-1.27,1-1.87.89-.56-.1-1.06-.4-1.47-.89-.27-.32-.49-.69-.65-1.12v-2.03s4.64,0,4.64,0v2.03c-.16.43-.37.8-.65,1.12Z"/><g><polygon points="23.02 9.61 22.25 9.61 21.51 9.02 21.5 5.33 22.32 4.64 22.94 4.64 23.76 5.33 23.76 9.02 23.02 9.61"/><rect fill="#fefefe" x="22.25" y="5.2" width=".77" height="1.41" transform="translate(-.02 .06)"/></g><g><polygon points="29.38 9.61 28.6 9.61 27.86 9.02 27.86 5.33 28.68 4.64 29.29 4.64 30.11 5.33 30.11 9.02 29.38 9.61"/><rect fill="#fefefe" x="28.6" y="5.2" width=".77" height="1.41" transform="translate(-.02 .08)"/></g></svg></div>
+        <p class="drop-head">DROP A FILE</p>
+        <p class="drop-sub">OR <label class="link" for="file-input">BROWSE<input id="file-input" type="file" accept="application/pdf,image/*,video/*,audio/*,.pdf,.svg" hidden /></label> &middot; PASTE ALSO WORKS</p>
+        <p class="drop-types">PDF &middot; SVG &middot; IMAGES &middot; GIF &harr; VIDEO &middot; AUDIO<br /><span class="muted lower">pdf &middot; svg &middot; jpg &middot; png &middot; webp &middot; gif &middot; mp4 &middot; mov &middot; mkv &middot; avi &middot; webm &middot; mp3 &middot; m4a &middot; flac &middot; wav &middot; and more</span></p>
+        <p class="drop-privacy">NOTHING IS UPLOADED <span class="pdot">&middot;</span> 100% ON YOUR DEVICE</p>
+      </div>
+      <p id="input-error" class="error" role="alert" hidden></p>
+    </section>
+    </div><!-- /.fold -->
+
+    <!-- SEO content: real, visible copy. Search engines do not rank empty tool
+         shells; this section carries the long-tail queries. FAQ text is mirrored
+         VERBATIM in the FAQPage JSON-LD below (a Google requirement). Sits below
+         the fold by design - fully indexed either way. -->
+    <section class="seo" aria-label="About SQUISH">
+      <h2 class="seo-head">WHAT IT DOES</h2>
+      <p>SQUISH is a free file compressor that hits an exact file size. Instead of guessing with a quality slider, you name the number - Compress an image to 200 KB, a GIF to under 256 KB, a video to 8 MB - And SQUISH searches the encoder settings to land as close to your target as possible without ever going over. It works as an image compressor (JPG, PNG, WEBP), an animated GIF compressor, a video compressor (MP4, MOV, WEBM) and an audio compressor (MP3, WAV, M4A), entirely on your device.</p>
+
+      <h2 class="seo-head">HOW IT WORKS</h2>
+      <ol class="seo-steps">
+        <li><span class="seo-step-label">DROP</span> Drag in any image, GIF, video or audio file - Or paste it.</li>
+        <li><span class="seo-step-label">NAME THE SIZE</span> Type your target in KB or MB, or pick a one-tap preset.</li>
+        <li><span class="seo-step-label">SQUISH</span> The engine probes the encoder, binary-searches the settings, and hands back the highest-quality file that fits under your number.</li>
+      </ol>
+
+      <h2 class="seo-head">FAQ</h2>
+      <dl class="seo-faq">
+        <dt>How do I compress an image to an exact size like 200 KB?</dt>
+        <dd>Drop the image, type 200 KB as the target, and press SQUISH IT. The engine measures real encodes at several quality levels, then binary-searches the quality and scale until the file lands just under 200 KB - Typically within 1-2% of the number you asked for.</dd>
+        <dt>How do I compress a video to 8 MB, for example for Discord?</dt>
+        <dd>Drop the video, set 8 MB as the target, and choose MP4 or WEBM. SQUISH computes the bitrate from your target and the clip duration, encodes, measures, and corrects until the file fits under 8 MB.</dd>
+        <dt>Is anything uploaded?</dt>
+        <dd>No. Nothing is uploaded - SQUISH runs 100% on your device. Files are read locally and compressed with canvas and WebAssembly in your browser; after the first load it even works offline.</dd>
+        <dt>What file types does SQUISH support?</dt>
+        <dd>Images: JPG, PNG and WEBP, with your choice of output format. GIF, including animated GIFs. Video: MP4, MOV and WEBM in, MP4 or WEBM out. Audio: MP3, WAV and M4A in, MP3 or M4A out.</dd>
+        <dt>Will the output ever be bigger than my target?</dt>
+        <dd>Never. The output is guaranteed to be at or under the size you set - If the target is extremely small, SQUISH keeps reducing quality, dimensions or bitrate until it fits, and suggests a larger target when that trade gets heavy.</dd>
+        <dt>Is SQUISH free?</dt>
+        <dd>Yes - Free, no account, no watermark. It is a Puddy Studios tool that installs as a web app on desktop and mobile.</dd>
+      </dl>
+    </section>
+
+    <footer class="site-footer">
+      <p>SQUISH is a <a href="https://puddystudios.com">Puddy Studios</a> tool - Free and open source under the MIT license.</p>
+      <p><a href="https://github.com/cubedivisiondev/squish">Source on GitHub</a> <span class="pdot">&middot;</span> Nothing is uploaded, 100% on your device.</p>
+    </footer>
+  </main>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "SQUISH",
+    "url": "https://cubedivisiondev.github.io/squish/",
+    "description": "Compress images, GIF, video and audio to an exact file size. Pick a target like 200 KB, get the best quality that fits under it. Nothing is uploaded - 100% on your device.",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any - Runs in the browser",
+    "image": "https://cubedivisiondev.github.io/squish/og-card.png",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "publisher": { "@type": "Organization", "name": "Puddy Studios", "url": "https://puddystudios.com", "logo": { "@type": "ImageObject", "url": "https://cubedivisiondev.github.io/squish/icons/icon-512.png" } }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "How do I compress an image to an exact size like 200 KB?", "acceptedAnswer": { "@type": "Answer", "text": "Drop the image, type 200 KB as the target, and press SQUISH IT. The engine measures real encodes at several quality levels, then binary-searches the quality and scale until the file lands just under 200 KB - Typically within 1-2% of the number you asked for." } },
+      { "@type": "Question", "name": "How do I compress a video to 8 MB, for example for Discord?", "acceptedAnswer": { "@type": "Answer", "text": "Drop the video, set 8 MB as the target, and choose MP4 or WEBM. SQUISH computes the bitrate from your target and the clip duration, encodes, measures, and corrects until the file fits under 8 MB." } },
+      { "@type": "Question", "name": "Is anything uploaded?", "acceptedAnswer": { "@type": "Answer", "text": "No. Nothing is uploaded - SQUISH runs 100% on your device. Files are read locally and compressed with canvas and WebAssembly in your browser; after the first load it even works offline." } },
+      { "@type": "Question", "name": "What file types does SQUISH support?", "acceptedAnswer": { "@type": "Answer", "text": "Images: JPG, PNG and WEBP, with your choice of output format. GIF, including animated GIFs. Video: MP4, MOV and WEBM in, MP4 or WEBM out. Audio: MP3, WAV and M4A in, MP3 or M4A out." } },
+      { "@type": "Question", "name": "Will the output ever be bigger than my target?", "acceptedAnswer": { "@type": "Answer", "text": "Never. The output is guaranteed to be at or under the size you set - If the target is extremely small, SQUISH keeps reducing quality, dimensions or bitrate until it fits, and suggests a larger target when that trade gets heavy." } },
+      { "@type": "Question", "name": "Is SQUISH free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes - Free, no account, no watermark. It is a Puddy Studios tool that installs as a web app on desktop and mobile." } }
+    ]
+  }
+  </script>
+
+  <script src="app.js"></script>
+</body>
+</html>
